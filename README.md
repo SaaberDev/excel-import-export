@@ -1,7 +1,7 @@
 **This application will help you to with:**
 
-* Import Big Data.
-* Export Big Data.
+* Import Big Data (1M++).
+* Export Big Data (1M++).
 * Monitor Errors.
 * Get Notification via Email.
 * Get Notification in Application Side.
