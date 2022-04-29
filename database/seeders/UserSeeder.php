@@ -15,16 +15,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::factory(10)->create();
-//        $users->makeVisible(['password', 'remember_token']);
-//        $chunked = $users->chunk(200);
-//
-//        foreach ($chunked->toArray() as $items) {
-//            foreach ($items as $item) {
-//                $item['created_at'] = now()->toDateTimeString();
-//                $item['updated_at'] = now()->toDateTimeString();
-//                User::query()->insert($item);
-//            }
-//        }
+        $users = User::factory()->count(100000)->make();
+        $users->makeVisible(['password', 'remember_token']);
+        $chunked = $users->chunk(500);
+
+        foreach ($chunked->toArray() as $items) {
+            foreach ($items as $item) {
+                $item['created_at'] = now()->toDateTimeString();
+                $item['updated_at'] = now()->toDateTimeString();
+                User::query()->insert($item);
+            }
+        }
     }
 }

@@ -6,6 +6,8 @@ use App\Exports\ExportFailure;
 use App\Exports\ExportUser;
 use App\Imports\ImportUser;
 use App\Imports\ImportUserNew;
+use App\Jobs\ExportJob;
+use App\Jobs\ExportReadingJob;
 use App\Jobs\ReadExcelJob;
 use App\Models\ImportLog;
 use App\Models\User;
@@ -72,15 +74,21 @@ class ImportController extends Controller
         return redirect()->back();
     }
 
-    public function map()
+    public function seeBatch($id)
     {
-        //
+        return \Bus::findBatch($id);
     }
 
+    /**
+     * @throws \Throwable
+     */
     public function export()
     {
-        return Excel::download(new ExportUser(), 'users.csv');
-//        return Excel::download(new ExportFailure(), 'users.csv');
+        $batch = \Bus::batch([
+            new ExportJob()
+        ])->dispatch();
+
+        return redirect()->route('seeBatch', $batch->id);
     }
 
     public function importNew(Request $request)

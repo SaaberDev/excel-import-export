@@ -3,51 +3,58 @@
 namespace App\Exports;
 
 use App\Models\User;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ExportUser implements FromQuery, WithHeadings, WithMapping
+class ExportUser implements FromQuery
+    , WithHeadings
+    , WithMapping
 {
-    public $users;
-
-    public function __construct()
-    {
-        $this->users = new User();
-    }
+    use Exportable;
 
     /**
-    * @return User
+    * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query()
     {
-        $this->users->makeVisible(['password', 'remember_token']);
-        return $this->users;
+        return User::query();
     }
 
     public function headings(): array
     {
-        return \Schema::getColumnListing($this->users->getTable());
+        return [
+            'name',
+            'email',
+            'created_at',
+//            'updated_at',
+        ];
+//        return \Schema::getColumnListing($this->users->getTable());
     }
 
     public function map($row): array
     {
-        $columns = \Schema::getColumnListing($this->users->getTable());
-        $columns = array_slice($columns, 0, -2);
+        return [
+            'name' => $row->name,
+            'email' => $row->email,
+            'created_at' => Date::dateTimeFromTimestamp($row->created_at),
+//            'updated_at' => Date::dateTimeFromTimestamp($row->updated_at)
+        ];
+    }
 
-        $map = [];
-        foreach ($columns as $column) {
-            $map[] = $row->$column;
-        }
-        if ($row->created_at) {
-            $map[] = Date::dateTimeFromTimestamp($row->created_at);
-        }
-        if ($row->updated_at) {
-            $map[] = Date::dateTimeFromTimestamp($row->updated_at);
-        }
-
-        return $map;
-
+    public function fields(): array
+    {
+        return [
+            'name',
+            'email',
+            'created_at',
+//            'created_at'
+        ];
     }
 }
