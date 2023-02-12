@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ExportFailure;
-use App\Exports\ExportUser;
 use App\Imports\ImportUser;
-use App\Imports\ImportUserNew;
 use App\Jobs\ExportJob;
-use App\Jobs\ExportReadingJob;
-use App\Jobs\ReadExcelJob;
-use App\Models\ImportLog;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Validator;
 
 class ImportController extends Controller
 {
+    protected array $logs = [
+        'errors' => [],
+    ];
+
     public function index()
     {
 //        $importLogs = ImportLog::query()->latest()->first();
@@ -65,11 +60,7 @@ class ImportController extends Controller
     public function import(Request $request)
     {
         $file = $request->file('file');
-        $rules = [
-            'name' => 'required',
-            'email' => 'required|unique:users'
-        ];
-        $importInstance = (new ImportUser($rules, User::class));
+        $importInstance = (new ImportUser());
         Excel::import($importInstance, $file);
         return redirect()->back();
     }
@@ -89,17 +80,5 @@ class ImportController extends Controller
         ])->dispatch();
 
         return redirect()->route('seeBatch', $batch->id);
-    }
-
-    public function importNew(Request $request)
-    {
-        $file = $request->file('file');
-        $rules = [
-            'name' => 'required',
-            'email' => 'required|unique:users'
-        ];
-        $importInstance = (new ImportUserNew());
-        Excel::import($importInstance, $file);
-        return redirect()->back();
     }
 }

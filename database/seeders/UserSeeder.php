@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::factory()->count(100000)->make();
+        $users = User::factory()->count(10)->make();
         $users->makeVisible(['password', 'remember_token']);
         $chunked = $users->chunk(500);
 

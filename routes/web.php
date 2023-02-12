@@ -21,7 +21,6 @@ Route::get('/', function () {
 Route::get('/import', [\App\Http\Controllers\ImportController::class, 'index'])->name('index');
 Route::get('/seeBatch/{id}', [\App\Http\Controllers\ImportController::class, 'seeBatch'])->name('seeBatch');
 Route::post('/import', [\App\Http\Controllers\ImportController::class, 'import'])->name('import');
-Route::post('/import-new', [\App\Http\Controllers\ImportController::class, 'importNew'])->name('importNew');
 Route::get('/export', [\App\Http\Controllers\ImportController::class, 'export'])->name('export');
 
 Route::get('/dashboard', function () {

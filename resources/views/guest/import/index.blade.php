@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form class="flex items-center space-x-6" action="{{ route('importNew') }}" method="POST" enctype="multipart/form-data">
+                        <form class="flex items-center space-x-6" action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row align-items-center">
                                 <div class="col-10">

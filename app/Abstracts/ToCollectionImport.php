@@ -2,7 +2,6 @@
 
     namespace App\Abstracts;
 
-    use App\Exports\ExportFailure;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Validator;
     use Illuminate\Validation\ValidationException;
@@ -16,20 +15,13 @@
 
     abstract class ToCollectionImport implements ToCollection
     {
-        /**
-         * Set additional user resolve callback.
-         *
-         * @var Collection
-         */
-        protected static Collection $additionalUsersCallback;
+        public Collection $failureLogs;
 
         abstract public function processImport(Collection $rows);
 
         abstract public function rules(): array;
 
         abstract public function getUser();
-
-//        abstract public function getOrganization();
 
         /**
          * @param Collection $rows
@@ -48,9 +40,26 @@
             }
 
 
+            $path = \Storage::path(config('application_settings.excel.logs.path') . config('application_settings.excel.logs.file_name'));
+            if (!$path) {
+                fopen($path, 'w');
+            }
             if ($this->failures()->count() > 0) {
-                $path = "excels/userFailures/{$this->getUser()}/import_failures_" . uniqid() . '.xlsx';
-                (new ExportFailure($this->failures()))->store($path);
+                if ($this->failures()) {
+                    $this->failureLogs = $this->failures()->map(function ($item) {
+                        return [
+                            'row' => $item->row(),
+                            'attribute' => $item->attribute(),
+                            'errors' => $item->errors()
+                        ];
+                    });
+
+                    $file = fopen($path, 'a');
+                    if ($file) {
+                        fwrite($file, $this->failureLogs);
+                        fclose($file);
+                    }
+                }
             }
 
             if ($this->errors()->count() > 0) {
@@ -134,17 +143,5 @@
             }
 
             throw $error;
-        }
-
-        /**
-         * Set additional users callback.
-         *
-         * @param Callable $callback
-         *
-         * @return self
-         */
-        public static function additionalUsers(callable $callback): ToCollectionImport
-        {
-            static::$additionalUsersCallback = $callback;
         }
     }

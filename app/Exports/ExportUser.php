@@ -32,7 +32,7 @@ class ExportUser implements FromQuery
         return [
             'name',
             'email',
-            'created_at',
+//            'created_at',
 //            'updated_at',
         ];
 //        return \Schema::getColumnListing($this->users->getTable());
@@ -43,7 +43,7 @@ class ExportUser implements FromQuery
         return [
             'name' => $row->name,
             'email' => $row->email,
-            'created_at' => Date::dateTimeFromTimestamp($row->created_at),
+//            'created_at' => Date::dateTimeFromTimestamp($row->created_at),
 //            'updated_at' => Date::dateTimeFromTimestamp($row->updated_at)
         ];
     }
