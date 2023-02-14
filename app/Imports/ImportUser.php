@@ -25,7 +25,7 @@ class ImportUser extends ToCollectionImport implements SkipsOnError
     , WithStartRow
     , WithHeadingRow
     , WithChunkReading
-    , WithBatchInserts
+//    , WithBatchInserts
     , ShouldQueue
 {
     use Importable, SkipsErrors, SkipsFailures;
@@ -60,17 +60,9 @@ class ImportUser extends ToCollectionImport implements SkipsOnError
     /**
      * @return int
      */
-    public function batchSize(): int
-    {
-        return 5;
-    }
-
-    /**
-     * @return int
-     */
     public function chunkSize(): int
     {
-        return 5;
+        return 700;
     }
 
     /**

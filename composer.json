@@ -9,10 +9,14 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
+        "laravel/telescope": "^4.13",
         "laravel/tinker": "^2.7",
+        "league/csv": "9.0",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "1.0",
-        "rogervila/laravel-legacy-ui": "^3.2"
+        "rap2hpoutre/fast-excel": "^5.1",
+        "rogervila/laravel-legacy-ui": "^3.2",
+        "spatie/simple-excel": "^3.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

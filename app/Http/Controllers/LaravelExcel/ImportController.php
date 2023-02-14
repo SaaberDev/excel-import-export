@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\LaravelExcel;
 
+use App\Http\Controllers\Controller;
 use App\Imports\ImportUser;
 use App\Jobs\ExportJob;
 use Illuminate\Http\Request;
