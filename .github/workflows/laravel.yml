@@ -18,6 +18,8 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: executing remote ssh commands using ssh keys
         uses: appleboy/ssh-action@master
         with:
@@ -39,6 +41,4 @@ jobs:
             git pull ${{ secrets.SAABERDEV_GITPULL }} main
             git status
       - name: Copy .env file
-        run: cp .env.example .env
-      - name: Composer Install
-        run: composer install --optimize-autoloader --no-dev
+        run: pwd
