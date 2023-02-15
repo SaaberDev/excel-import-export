@@ -33,7 +33,6 @@ jobs:
             if ![ -d /.git ]; then
               git init
               git remote add origin ${{ secrets.SAABERDEV_GITURL }}
-              echo "git initialized"
             fi
             git add .
             git stash --include-untracked
