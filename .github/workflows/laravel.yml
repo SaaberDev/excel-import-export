@@ -33,10 +33,12 @@ jobs:
             if [ ! -d .git ]; then
               git init
               git remote add origin ${{ secrets.SAABERDEV_GITURL }}
-              echo "directory does not exists."
             fi
             git add .
             git stash --include-untracked
             git pull ${{ secrets.SAABERDEV_GITPULL }} main
             git status
-
+      - name: Copy .env file
+        run: cp .env.example .env
+      - name: Composer Install
+        run: composer install --optimize-autoloader --no-dev
