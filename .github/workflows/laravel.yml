@@ -28,7 +28,7 @@ jobs:
           #        password:
           port: ${{ secrets.SAABERDEV_PORT }}
           rules: |
-            - if: ${{ ! [ -d /.git ] }}
+            - if: ${{ ! -d /.git }}
               run: |
                 cd /home/saaberdev/importexportapp.saaberdev.com
                 git init
