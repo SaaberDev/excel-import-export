@@ -41,4 +41,4 @@ jobs:
             git pull ${{ secrets.SAABERDEV_GITPULL }} main
             git status
       - name: Copy .env file
-        run: pwd
+        run: ls
