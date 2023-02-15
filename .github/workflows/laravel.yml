@@ -30,17 +30,13 @@ jobs:
           script: |
             cd /home/saaberdev/importexportapp.saaberdev.com
             pwd
-            if [ -d /.git ]; then
-              git add .
-              git stash --include-untracked
-              git pull ${{ secrets.SAABERDEV_GITPULL }} main
-              git status
-            else
+            if ![ -d /.git ]; then
               git init
               git remote add origin ${{ secrets.SAABERDEV_GITURL }}
-              git add .
-              git stash --include-untracked
-              git pull ${{ secrets.SAABERDEV_GITPULL }} main
-              git status
+              echo "git initialized"
             fi
+            git add .
+            git stash --include-untracked
+            git pull ${{ secrets.SAABERDEV_GITPULL }} main
+            git status
 
