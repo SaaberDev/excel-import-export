@@ -33,6 +33,7 @@ jobs:
             if [ ! -d .git ]; then
               git init
               git remote add origin ${{ secrets.SAABERDEV_GITURL }}
+              echo "directory does not exists."
             fi
             git add .
             git stash --include-untracked
