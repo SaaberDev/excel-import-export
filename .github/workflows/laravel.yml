@@ -30,7 +30,8 @@ jobs:
           script: |
             cd /home/saaberdev/importexportapp.saaberdev.com
             pwd
-            if [! -d /.git ]; then
+            if [ ! -d /.git ];
+            then
               git init
               git remote add origin ${{ secrets.SAABERDEV_GITURL }}
             fi
