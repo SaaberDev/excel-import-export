@@ -27,14 +27,15 @@ jobs:
           passphrase: ${{ secrets.SAABERDEV_PASSPHRASE }}
           #        password:
           port: ${{ secrets.SAABERDEV_PORT }}
+          rules: |
+            - if: ${{ ! [ -d /.git ] }}
+              run: |
+                cd /home/saaberdev/importexportapp.saaberdev.com
+                git init
+                git remote add origin ${{ secrets.SAABERDEV_GITURL }}
           script: |
             cd /home/saaberdev/importexportapp.saaberdev.com
             pwd
-            if [ ! -d /.git ];
-            then
-              git init
-              git remote add origin ${{ secrets.SAABERDEV_GITURL }}
-            fi
             git add .
             git stash --include-untracked
             git pull ${{ secrets.SAABERDEV_GITPULL }} main
