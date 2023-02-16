@@ -38,7 +38,7 @@ jobs:
             git stash --include-untracked
             git pull ${{ secrets.SAABERDEV_GITPULL }} main
             git status
-            if [ ! -d .env ]; then
+            if [ ! -f .env ]; then
               cp .env.example .env
               php artisan key:generate
             fi
