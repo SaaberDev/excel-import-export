@@ -25,7 +25,7 @@ class ImportUser extends ToCollectionImport implements SkipsOnError
     , WithStartRow
     , WithHeadingRow
     , WithChunkReading
-//    , WithBatchInserts
+    , WithBatchInserts
     , ShouldQueue
 {
     use Importable, SkipsErrors, SkipsFailures;
@@ -55,6 +55,11 @@ class ImportUser extends ToCollectionImport implements SkipsOnError
             '*.name' => ['required'],
             '*.email' => ['email', 'unique:users,email'],
         ];
+    }
+
+    public function batchSize(): int
+    {
+        return 700;
     }
 
     /**
