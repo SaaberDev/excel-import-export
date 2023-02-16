@@ -15,7 +15,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Import / Export') }}
+            {{ __('Import / Export App') }}
         </h2>
     </x-slot>
 
@@ -25,7 +25,7 @@
             <div class="col-md-12 mt-5">
                 <div class="card">
                     <div class="card-header">
-                        CSV Import
+                        Laravel Excel Package Test
                     </div>
 
                     <div class="card-body">
