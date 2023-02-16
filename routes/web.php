@@ -1,6 +1,7 @@
 <?php
 
-    use App\Models\User;
+use App\Http\Controllers\LaravelExcel\ImportController;
+use App\Models\User;
     use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +19,10 @@ Route::get('/', function () {
     //
 });
 
-Route::get('/import', [\App\Http\Controllers\ImportController::class, 'index'])->name('index');
-Route::get('/seeBatch/{id}', [\App\Http\Controllers\ImportController::class, 'seeBatch'])->name('seeBatch');
-Route::post('/import', [\App\Http\Controllers\ImportController::class, 'import'])->name('import');
-Route::get('/export', [\App\Http\Controllers\ImportController::class, 'export'])->name('export');
+Route::get('/import', [ImportController::class, 'index'])->name('index');
+Route::get('/seeBatch/{id}', [ImportController::class, 'seeBatch'])->name('seeBatch');
+Route::post('/import', [ImportController::class, 'import'])->name('import');
+Route::get('/export', [ImportController::class, 'export'])->name('export');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
