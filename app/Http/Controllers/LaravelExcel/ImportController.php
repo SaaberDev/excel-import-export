@@ -68,12 +68,15 @@ class ImportController extends Controller
 
     public function seeBatch($id)
     {
+        $batch = \Bus::findBatch($id);
         $route = route('download');
-        echo
-            '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>' .
-            'Here is the array output of export batch.' . '<a href="'.$route.'">Download</a>';
+        if ($batch->finished()) {
+            echo
+                '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>' .
+                'Here is the array output of export batch. ' . '<a href="' . $route . '"> Download</a>';
+        }
 
-        dd(\Bus::findBatch($id)->toArray());
+        dd($batch->toArray());
     }
 
     /**
