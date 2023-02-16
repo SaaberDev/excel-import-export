@@ -68,7 +68,11 @@ class ImportController extends Controller
 
     public function seeBatch($id)
     {
-        echo 'Here is the array output of export batch';
+        $route = route('download');
+        echo
+            '<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>' .
+            'Here is the array output of export batch.' . '<a href="'.$route.'">Download</a>';
+
         dd(\Bus::findBatch($id)->toArray());
     }
 
@@ -82,5 +86,19 @@ class ImportController extends Controller
         ])->dispatch();
 
         return redirect()->route('seeBatch', $batch->id);
+    }
+
+    public function download()
+    {
+        $path = \Storage::path('excels/download/users.csv');
+        $file_name = 'users.csv';
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename={$file_name}",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+        return \Storage::download($path, $file_name, $headers);
     }
 }

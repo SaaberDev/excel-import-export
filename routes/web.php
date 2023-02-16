@@ -22,6 +22,7 @@ Route::get('/import', [ImportController::class, 'index'])->name('index');
 Route::get('/seeBatch/{id}', [ImportController::class, 'seeBatch'])->name('seeBatch');
 Route::post('/import', [ImportController::class, 'import'])->name('import');
 Route::get('/export', [ImportController::class, 'export'])->name('export');
+Route::get('/download', [ImportController::class, 'download'])->name('download');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
