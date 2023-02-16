@@ -68,7 +68,7 @@ class ImportController extends Controller
 
     public function seeBatch($id)
     {
-        return \Bus::findBatch($id);
+        return \Bus::findBatch($id)->toArray();
     }
 
     /**
