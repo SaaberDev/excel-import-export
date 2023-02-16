@@ -40,3 +40,4 @@ jobs:
             git status
             cp .env.example .env
             composer install --optimize-autoloader --no-dev
+            php artisan key:generate
