@@ -42,4 +42,5 @@ jobs:
               cp .env.example .env
               php artisan key:generate
             fi
+            php artisan storage:link
             composer install --optimize-autoloader --no-dev

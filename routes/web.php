@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\LaravelExcel\ImportController;
-use App\Models\User;
-    use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
