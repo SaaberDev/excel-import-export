@@ -16,7 +16,7 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    //
+    return redirect()->route('index');
 });
 
 Route::get('/import', [ImportController::class, 'index'])->name('index');
